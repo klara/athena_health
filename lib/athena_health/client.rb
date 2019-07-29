@@ -1,5 +1,7 @@
 module AthenaHealth
   class Client
+    attr_reader :api
+    
     def initialize(version:, key:, secret:, token: nil)
       @api = AthenaHealth::Connection.new(
         version: version,

@@ -5,6 +5,8 @@ module AthenaHealth
     BASE_URL    = 'https://api.athenahealth.com'.freeze
     AUTH_PATH   = { 'v1' => 'oauth', 'preview1' => 'oauthpreview', 'openpreview1' => 'oauthopenpreview' }
 
+    attr_reader :token, :oauth_token
+
     def initialize(version:, key:, secret:, token: nil, base_url: BASE_URL)
       @version = version
       @key = key
@@ -20,6 +22,7 @@ module AthenaHealth
         body: { grant_type: 'client_credentials' }
       ).response_body
 
+      @oauth_token = JSON.parse(response)
       @token = JSON.parse(response)['access_token']
     end
 
